@@ -1,47 +1,38 @@
-let shoppingList = [];
+let unfilteredList = [];
+let list = [];
 
 const recipeFactory = (name, ingredients, mealType) => {
     return {name, ingredients, mealType};
 };
-const ingredientFactory = (name, type, isRefrigerated) => {
-    return {name, type, isRefrigerated};
-};
-
-//ingredients
-const onion = ingredientFactory('onion', 'vegetable', false);
-const groundBeef80 = ingredientFactory('80/20 ground beef', 'meat', true);
-const MexicanCheese = ingredientFactory('mexican blend cheese', 'dairy', true);
-const tacoSauce = ingredientFactory('taco sauce', 'dry', false);
-const tortillas = ingredientFactory('tortillas', 'dry', false);
-const spaghettiNoodles = ingredientFactory('spaghetti noodles', 'dry', false);
-const spaghettiSauce = ingredientFactory('spaghetti sauce', 'dry', false);
 
 // recipes
-const tacos = recipeFactory('tacos', [tacoSauce, groundBeef80, tortillas, MexicanCheese], 'dinner');
-const spaghetti = recipeFactory('spaghetti', [spaghettiNoodles, groundBeef80, spaghettiSauce, onion], 'dinner');
+const tacos = recipeFactory('tacos', ['taco sauce', '80/20 ground beef', 'tortillas', 'mexican blend cheese'], 'dinner');
+const spaghetti = recipeFactory('spaghetti', ['spaghetti noodles', '80/20 ground beef', 'spaghetti sauce', 'onion'], 'dinner');
 
-let recipes = [tacos, ];
-
+let recipes = [tacos, spaghetti];
 
 function pushRecipeToShoppingList(obj) {
+    // pushes ingredients of recipe to unfiltered list
     obj.ingredients.forEach(element => {
-        shoppingList.push(element.name);
+        unfilteredList.push(element);
     });
-    let reducedList = [...new Set(shoppingList)];
-    let qtyArray = [];
-    reducedList.forEach(elm => {
-        let qty = shoppingList.filter(x => x == elm).length;
-        qtyArray.push(qty);
+    /* creates an array of ingredients on the unfiltered list with no repeats 
+    and an array with the quantity of each ingredient on the unfiltered list */
+    let noDuplicatesList = [...new Set(unfilteredList)];
+    let QuantityArray = [];
+    noDuplicatesList.forEach(elm => {
+        let ingredientQuantity = unfilteredList.filter(x => x == elm).length;
+        QuantityArray.push(ingredientQuantity);
     })
-    for (i = 0; i < reducedList.length; i++) {
-        reducedList[i] = reducedList[i] + " x" + qtyArray[i]; 
+    //combines the no-duplicates array with the quantity array and returns the final list
+    for (i = 0; i < noDuplicatesList.length; i++) {
+        list[i] = noDuplicatesList[i] + " x" + QuantityArray[i]; 
     }
-    return reducedList;
-    // get selected recipe from user and return the ingredients list 
-    // push ingredients to shoppingList 
+    return list;
 }
 
-function addSingleItemToShoppingList() {
-    // get user input and push it onto the shoppingList
+function addSingleItemToShoppingList(item) {
+    let pseudoRecipe = recipeFactory('pseudo', [item], 'added item');
+    return pushRecipeToShoppingList(pseudoRecipe);
 }
 
