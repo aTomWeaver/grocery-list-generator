@@ -6,12 +6,27 @@ const recipeFactory = (name, ingredients, mealType) => {
 };
 
 // recipes
-const tacos = recipeFactory('tacos', ['taco sauce', '80/20 ground beef', 'tortillas', 'mexican blend cheese'], 'dinner');
-const spaghetti = recipeFactory('spaghetti', ['spaghetti noodles', '80/20 ground beef', 'spaghetti sauce', 'onion'], 'dinner');
+const tacos = recipeFactory('tacos', ['taco sauce', '1 lb 80/20 ground beef', 'tortillas',
+    'mexican blend cheese'], 'dinner');
+const spaghetti = recipeFactory('spaghetti', ['spaghetti noodles', '1 lb 80/20 ground beef', 'spaghetti sauce',
+    'yellow onion'], 'dinner');
+const jambalaya = recipeFactory('jambalaya', ['andouille sausage', 'chicken thighs', 'chicken broth',
+    'chicken broth', 'crushed tomatoes', 'yellow onion', '? minced garlic'], 'dinner');
+const sandwiches = recipeFactory('sandwiches', ['bread', 'deli meat', 'deli meat', 'sandwich cheese',
+    '? mayo'], 'lunch');
+const chicken_pasta = recipeFactory('chicken pasta', ['rotisserie', '? rotini', '? pesto', '? tomato sauce',
+    '? parmesan cheese'], 'dinner');
+const chicken_wraps = recipeFactory('chicken wraps', ['tortillas', 'romaine', 'feta', 'rotisserie',
+    '? ginger dressing', '? black olives'], 'lunch');
+const teriyaki_sauce = recipeFactory('teriyaki sauce', ['sake', 'mirin', '? sugar', 'soy sauce'], 'sauce');
+const chicken_teriyaki = recipeFactory('chicken teriyaki', ['chicken thighs', 'broccoli', '? rice'].concat(teriyaki_sauce.ingredients),
+    'dinner');
+const chili = recipeFactory('chili', ['1 lb 80/20 ground beef', 'diced tomatoes', 'diced tomatoes',
+    'chicken broth', 'dark kidney beans', 'black beans', '? chili powder', 'yellow onion', '? red pepper flakes'], 'dinner');
 
-let recipes = [tacos, spaghetti];
+let recipes = [tacos, spaghetti, jambalaya, sandwiches, chicken_pasta, chicken_wraps, chicken_teriyaki, chili];
 
-function pushRecipeToShoppingList(obj) {
+function recipeAdd(obj) {
     // pushes ingredients of recipe to unfiltered list
     obj.ingredients.forEach(element => {
         unfilteredList.push(element);
@@ -31,8 +46,8 @@ function pushRecipeToShoppingList(obj) {
     return list;
 }
 
-function addSingleItemToShoppingList(item) {
+function itemAdd(item) {
     let pseudoRecipe = recipeFactory('pseudo', [item], 'added item');
-    return pushRecipeToShoppingList(pseudoRecipe);
+    return recipeAdd(pseudoRecipe);
 }
 
