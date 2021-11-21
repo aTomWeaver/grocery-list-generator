@@ -10,6 +10,9 @@ const recipeFactory = (name, ingredients, mealType) => {
 const newRecipeBtn = document.getElementById('new-recipe-btn');
 const modal = document.getElementById('modal');
 const closeModalBtn = document.getElementById('close-modal-btn');
+const modalAddBtn = document.getElementById('modal-add-btn');
+const recipeSelector = document.querySelector('.recipe-selector');
+
 // recipes
 const tacos = recipeFactory('tacos', ['taco sauce', '1 lb 80/20 ground beef', 'tortillas',
     'mexican blend cheese'], 'dinner');
@@ -32,7 +35,16 @@ const chili = recipeFactory('chili', ['1 lb 80/20 ground beef', 'diced tomatoes'
 let recipes = [tacos, spaghetti, jambalaya, sandwiches, chicken_pasta, chicken_wraps, chicken_teriyaki, chili];
 
 // functions
-function recipeAdd(obj) {
+function addNewRecipe() {
+    const name = document.getElementById('recipe-name').value.toLowerCase().split(' ').join('_');
+    const ingr = document.getElementById('recipe-ingredients').value.toLowerCase().split(', ');
+    const type = document.getElementById('meal-type').value.toLowerCase();
+    const newRecipe = recipeFactory(name, ingr, type);
+    recipes.push(newRecipe);
+    refreshRecipeOptions()
+}
+
+function addRecipeToList(obj) {
     // pushes ingredients of recipe to unfiltered list
     obj.ingredients.forEach(element => {
         unfilteredList.push(element);
@@ -54,15 +66,32 @@ function recipeAdd(obj) {
 
 function itemAdd(item) {
     let pseudoRecipe = recipeFactory('pseudo', [item], 'added item');
-    return recipeAdd(pseudoRecipe);
+    return addRecipeToList(pseudoRecipe);
 }
 
 function displayModal(){
     modal.style.display = 'block';
 }
 
+function displayRecipeOptions() {
+    for (elm in recipes) {
+        console.log(recipes[elm].name);
+        const option = document.createElement('div');
+        option.classList.add('recipe');
+        option.innerText = recipes[elm].name;
+        recipeSelector.appendChild(option);
+    }
+}
+
+function refreshRecipeOptions() {
+    recipeSelector.innerHTML = '';
+    displayRecipeOptions()
+}
 
 // event listeners
 
 newRecipeBtn.addEventListener('click', displayModal);
 closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
+modalAddBtn.addEventListener('click', addNewRecipe);
+
+displayRecipeOptions();

@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&family=Caveat:wght@600&family=Nanum+Myeongjo&display=swap" rel="stylesheet"> 
     <script defer src="script.js"></script>
     <title>Grocery List Generator</title>
 </head>
@@ -18,22 +21,17 @@
                 <label for="ingredients">Ingredients</label>
                 <input type="text" placeholder="(separated by commas)" id="recipe-ingredients">
                 <label for="meal-type">Meal Type</label>
-                <input type="text" placeholder="breakfast/lunch/dinner/snack">
+                <input type="text" placeholder="breakfast/lunch/dinner/snack" id="meal-type">
+                <input type="button" value="Add" id="modal-add-btn">
             </form>
         </div>
     </div>
     <header>
         <button id="new-recipe-btn">New Recipe</button>
-        <h1>grocery list generator</h1>
+        <h1 id="title">Grocery List Generator</h1>
     </header>
     <div class="body-container">
-        <div class="grocery-selector">
-            <div class="recipe">a</div>
-            <div class="recipe">b</div>
-            <div class="recipe">c</div>
-            <div class="recipe">d</div>
-            <div class="recipe">e</div>
-        </div>
+        <div class="recipe-selector"></div>
         <div class="recipes-added">
             <h2>Recipes Added</h2>
             <div>spaghetti 

@@ -14,10 +14,15 @@ header {
     height: 45px;
 }
 
+#title {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 2.3em;
+}
+
 #new-recipe-btn {
-    /* position: absolute;
-    left: 10px; */
-    float:inline-start
+    position: absolute;
+    left: 10px;
+    /* float: left; */
 }
 
 .body-container {
@@ -27,7 +32,7 @@ header {
     grid-template-rows: 1fr;
 }
 
-.grocery-selector {
+.recipe-selector {
     background-color: burlywood;
     padding: 5px;
     display: flex;
@@ -54,10 +59,13 @@ header {
     flex-direction: column;
 }
     .recipes-added > h2 {
+        font-family: 'Nanum Myeongjo', serif;
         text-align: center;
-        font-size: 1.2em;
+        font-size: 1.5em;
     }
     .recipes-added > div {
+        font-family: 'caveat', cursive;
+        font-size: 1.3em;
         margin: 3px;
         padding: 3px;
     }
@@ -70,10 +78,13 @@ header {
     flex-direction: column;
 }
     .generated-list > h2 {
+        font-family: 'Nanum Myeongjo', serif;
         text-align: center;
-        font-size: 1.2em;
+        font-size: 1.5em;
     }
     .generated-list > div {
+        font-family: 'caveat', cursive;
+        font-size: 1.3em;
         margin: 3px;
         padding: 3px;
     }
@@ -113,6 +124,8 @@ header {
         margin: 5px;
     }
     form {
+        font-family: 'Baloo 2', cursive;
+        font-size: 1.3em;
         display: flex;
         flex-direction: column;
         align-items: center;
