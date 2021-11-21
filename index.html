@@ -4,10 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
     <title>Grocery List Generator</title>
 </head>
 <body>
-    
+    <div class='modal'>
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <form>
+                
+            </form>
+        </div>
+    </div>
+    <header>
+        <button id="new-recipe-btn">New Recipe</button>
+        <h1>grocery list generator</h1>
+    </header>
+    <div class="body-container">
+        <div class="grocery-selector">
+            <div class="recipe">a</div>
+            <div class="recipe">b</div>
+            <div class="recipe">c</div>
+            <div class="recipe">d</div>
+            <div class="recipe">e</div>
+        </div>
+        <div class="recipes-added">
+            <h2>Recipes Added</h2>
+            <div>spaghetti 
+                <span class="recipe-rmv">&times;</span>
+            </div>
+            <div>tacos 
+                <span class="recipe-rmv">&times;</span>
+            </div>
+        </div>
+        <div class="generated-list">
+            <h2>Grocery List</h2>
+            <div><span class="qty">3 </span>lb ground beef 
+                <span class="item-rmv">&times;</span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

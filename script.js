@@ -1,6 +1,7 @@
 let unfilteredList = [];
 let list = [];
 
+// factory functions
 const recipeFactory = (name, ingredients, mealType) => {
     return {name, ingredients, mealType};
 };
@@ -26,6 +27,7 @@ const chili = recipeFactory('chili', ['1 lb 80/20 ground beef', 'diced tomatoes'
 
 let recipes = [tacos, spaghetti, jambalaya, sandwiches, chicken_pasta, chicken_wraps, chicken_teriyaki, chili];
 
+// functions
 function recipeAdd(obj) {
     // pushes ingredients of recipe to unfiltered list
     obj.ingredients.forEach(element => {
@@ -51,3 +53,12 @@ function itemAdd(item) {
     return recipeAdd(pseudoRecipe);
 }
 
+function displayModal(){
+    alert('working');
+}
+
+const newRecipeBtn = document.getElementById('new-recipe-btn');
+
+// event listeners
+
+newRecipeBtn.addEventListener('click', displayModal)

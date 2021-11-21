@@ -1,0 +1,84 @@
+body,html {
+    margin: 0;
+    padding: 0;
+}
+* {
+    box-sizing: border-box;
+}
+
+header {
+    background-color: tomato;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+}
+
+#new-recipe-btn {
+    /* position: absolute;
+    left: 10px; */
+    float:inline-start
+}
+
+.body-container {
+    display: grid;
+    min-height: 95.4vh;
+    grid-template-columns: 1fr 175px 250px;
+    grid-template-rows: 1fr;
+}
+
+.grocery-selector {
+    background-color: burlywood;
+    padding: 5px;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+}
+    .recipe {
+        background-color: coral;
+        margin: 5px;
+        height: 100px;
+        width: 130px;
+    }
+        .recipe:hover {
+            opacity: 50%;
+        }
+        .recipe:active {
+            background-color: cornflowerblue;
+        }
+
+
+.recipes-added{
+    background-color: darkseagreen;
+    display: flex;
+    flex-direction: column;
+}
+    .recipes-added > h2 {
+        text-align: center;
+        font-size: 1.2em;
+    }
+    .recipes-added > div {
+        margin: 3px;
+        padding: 3px;
+    }
+    .recipe-rmv {
+        float: right;
+    }
+.generated-list {
+    background-color: dodgerblue;
+    display: flex;
+    flex-direction: column;
+}
+    .generated-list > h2 {
+        text-align: center;
+        font-size: 1.2em;
+    }
+    .generated-list > div {
+        margin: 3px;
+        padding: 3px;
+    }
+    .item-rmv {
+        float: right;
+    }
+
+
