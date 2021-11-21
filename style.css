@@ -81,4 +81,40 @@ header {
         float: right;
     }
 
+/* MODAL FORM */
+#modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    overflow: auto;
+}
 
+.modal-content {
+    background-color: dodgerblue;
+    margin: auto;
+    padding: 20px;
+    width: 300px;
+}
+    #close-modal-btn {
+        float: right;
+        color: #4a4a4a;
+    }
+        #close-modal-btn:hover,
+        #close-modal-btn:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    input {
+        margin: 5px;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    

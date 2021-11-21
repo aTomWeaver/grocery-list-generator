@@ -6,6 +6,10 @@ const recipeFactory = (name, ingredients, mealType) => {
     return {name, ingredients, mealType};
 };
 
+// element bindings
+const newRecipeBtn = document.getElementById('new-recipe-btn');
+const modal = document.getElementById('modal');
+const closeModalBtn = document.getElementById('close-modal-btn');
 // recipes
 const tacos = recipeFactory('tacos', ['taco sauce', '1 lb 80/20 ground beef', 'tortillas',
     'mexican blend cheese'], 'dinner');
@@ -54,11 +58,11 @@ function itemAdd(item) {
 }
 
 function displayModal(){
-    alert('working');
+    modal.style.display = 'block';
 }
 
-const newRecipeBtn = document.getElementById('new-recipe-btn');
 
 // event listeners
 
-newRecipeBtn.addEventListener('click', displayModal)
+newRecipeBtn.addEventListener('click', displayModal);
+closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
