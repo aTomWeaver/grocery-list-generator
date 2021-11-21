@@ -12,6 +12,7 @@ header {
     align-items: center;
     justify-content: center;
     height: 45px;
+    width: 100%;
 }
 
 #title {
@@ -41,9 +42,10 @@ header {
 }
     .recipe {
         background-color: coral;
-        margin: 5px;
+        margin: 10px;
         height: 100px;
         width: 130px;
+        text-align: center;
     }
         .recipe:hover {
             opacity: 50%;
@@ -53,17 +55,17 @@ header {
         }
 
 
-.recipes-added{
+.recipes-added-div{
     background-color: darkseagreen;
     display: flex;
     flex-direction: column;
 }
-    .recipes-added > h2 {
+    .recipes-added-div > h2 {
         font-family: 'Nanum Myeongjo', serif;
         text-align: center;
         font-size: 1.5em;
     }
-    .recipes-added > div {
+    .recipes-added-div > div {
         font-family: 'caveat', cursive;
         font-size: 1.3em;
         margin: 3px;
@@ -72,25 +74,28 @@ header {
     .recipe-rmv {
         float: right;
     }
-.generated-list {
+.grocery-list-div {
     background-color: dodgerblue;
     display: flex;
     flex-direction: column;
 }
-    .generated-list > h2 {
+    .grocery-list-div > h2 {
         font-family: 'Nanum Myeongjo', serif;
         text-align: center;
         font-size: 1.5em;
     }
-    .generated-list > div {
-        font-family: 'caveat', cursive;
-        font-size: 1.3em;
-        margin: 3px;
-        padding: 3px;
+    .grocery-list-container {
+        flex-grow: 1;
     }
-    .item-rmv {
-        float: right;
-    }
+        .grocery-list-container > div {
+            font-family: 'caveat', cursive;
+            font-size: 1.3em;
+            margin: 3px;
+            padding: 3px;
+        }
+        .item-rmv {
+            float: right;
+        }
 
 /* MODAL FORM */
 #modal {
@@ -120,6 +125,9 @@ header {
             text-decoration: none;
             cursor: pointer;
         }
+    #modal-add-btn {
+        margin-top: 30px;
+    }
     input {
         margin: 5px;
     }

@@ -1,5 +1,6 @@
 let unfilteredList = [];
 let list = [];
+let recipesAddedList = [];
 
 // factory functions
 const recipeFactory = (name, ingredients, mealType) => {
@@ -12,6 +13,9 @@ const modal = document.getElementById('modal');
 const closeModalBtn = document.getElementById('close-modal-btn');
 const modalAddBtn = document.getElementById('modal-add-btn');
 const recipeSelector = document.querySelector('.recipe-selector');
+const recipesAddedDiv = document.querySelector('.recipes-added-div');
+const grocerListContainer = document.querySelector('.grocery-list-container');
+
 
 // recipes
 const tacos = recipeFactory('tacos', ['taco sauce', '1 lb 80/20 ground beef', 'tortillas',
@@ -32,16 +36,36 @@ const chicken_teriyaki = recipeFactory('chicken teriyaki', ['chicken thighs', 'b
 const chili = recipeFactory('chili', ['1 lb 80/20 ground beef', 'diced tomatoes', 'diced tomatoes',
     'chicken broth', 'dark kidney beans', 'black beans', '? chili powder', 'yellow onion', '? red pepper flakes'], 'dinner');
 
-let recipes = [tacos, spaghetti, jambalaya, sandwiches, chicken_pasta, chicken_wraps, chicken_teriyaki, chili];
+let recipes = [tacos, spaghetti, jambalaya, sandwiches, chicken_pasta, 
+    chicken_wraps, chicken_teriyaki, chili];
+
+// helper functions
+
+function displayModal(){
+    modal.style.display = 'block';
+}
+
+function refreshRecipeOptions() {
+    recipeSelector.innerHTML = '';
+    displayRecipeOptions()
+}
+
+function clearModal() {
+    document.getElementById('recipe-name').value = '';
+    document.getElementById('recipe-ingredients').value = '';
+    document.getElementById('meal-type').value = '';
+    modal.style.display = 'none';
+}
 
 // functions
 function addNewRecipe() {
-    const name = document.getElementById('recipe-name').value.toLowerCase().split(' ').join('_');
+    const name = document.getElementById('recipe-name').value.toLowerCase();
     const ingr = document.getElementById('recipe-ingredients').value.toLowerCase().split(', ');
     const type = document.getElementById('meal-type').value.toLowerCase();
     const newRecipe = recipeFactory(name, ingr, type);
     recipes.push(newRecipe);
-    refreshRecipeOptions()
+    refreshRecipeOptions();
+    clearModal();
 }
 
 function addRecipeToList(obj) {
@@ -69,29 +93,43 @@ function itemAdd(item) {
     return addRecipeToList(pseudoRecipe);
 }
 
-function displayModal(){
-    modal.style.display = 'block';
-}
-
 function displayRecipeOptions() {
     for (elm in recipes) {
-        console.log(recipes[elm].name);
-        const option = document.createElement('div');
-        option.classList.add('recipe');
-        option.innerText = recipes[elm].name;
-        recipeSelector.appendChild(option);
+        const recipeOption = document.createElement('div');
+        recipeOption.classList.add('recipe');
+        recipeOption.setAttribute('data-recipe-num', elm);
+        recipeOption.innerText = recipes[elm].name;
+        recipeSelector.appendChild(recipeOption);
     }
 }
 
-function refreshRecipeOptions() {
-    recipeSelector.innerHTML = '';
-    displayRecipeOptions()
+function refreshRecipesAdded() {
+    
+}
+
+function refreshGroceryList() {
+    grocerListContainer.innerHTML = '';
+    for (elm in list) {
+        const item = document.createElement('div');
+        item.innerText = list[elm];
+        grocerListContainer.appendChild(item);
+    }
 }
 
 // event listeners
-
 newRecipeBtn.addEventListener('click', displayModal);
 closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
 modalAddBtn.addEventListener('click', addNewRecipe);
 
+
 displayRecipeOptions();
+
+const recipeOptions = document.querySelectorAll('.recipe');
+recipeOptions.forEach(recipe => {
+    recipe.addEventListener('click', (e) => {
+        const recipeNum = e.target.dataset.recipeNum;
+        recipesAddedList.push(recipes[recipeNum])
+        addRecipeToList(recipes[recipeNum])
+        refreshGroceryList();
+    });
+});
