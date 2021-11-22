@@ -26,6 +26,11 @@ header {
     /* float: left; */
 }
 
+#add-single-item-btn {
+    position: absolute;
+    right: 10px;
+}
+
 .body-container {
     display: grid;
     min-height: 95.4vh;
@@ -33,7 +38,7 @@ header {
     grid-template-rows: 1fr;
 }
 
-.recipe-selector {
+.recipe-container {
     background-color: burlywood;
     padding: 5px;
     display: flex;
@@ -65,7 +70,10 @@ header {
         text-align: center;
         font-size: 1.5em;
     }
-    .recipes-added-div > div {
+    .recipes-added-container {
+        flex-grow: 1;
+    }
+    .recipes-added-container > div {
         font-family: 'caveat', cursive;
         font-size: 1.3em;
         margin: 3px;
