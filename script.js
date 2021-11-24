@@ -91,9 +91,13 @@ function addRecipeToList(obj) {
 }
 
 function addSingleItem(item) {
-    let pseudoRecipe = recipeFactory('pseudo', [item], 'added item');
-    addRecipeToList(pseudoRecipe);
-    refreshGroceryList();
+    if (item === null) {
+        return;
+    } else {
+        let pseudoRecipe = recipeFactory('pseudo', [item], 'added item');
+        addRecipeToList(pseudoRecipe);
+        refreshGroceryList();
+    }
 }
 
 function refreshRecipesAdded() {
@@ -110,9 +114,13 @@ function refreshGroceryList() {
     for (elm in finalShoppingList) {
         const item = document.createElement('div');
         item.innerText = finalShoppingList[elm];
+        item.classList.add('grocery-list-item');
+        item.setAttribute('data-listNum', elm);
         grocerListContainer.appendChild(item);
     }
 }
+
+
 
 // event finalShoppingListeners
 newRecipeBtn.addEventListener('click', displayModal);
@@ -124,9 +132,7 @@ addSingleItemBtn.addEventListener('click',() => {
 })
 
 
-displayRecipeOptions();
 
-let recipeOptions = document.querySelectorAll('.recipe');
 
 function add(num) {
     addedRecipesArray.push(num)
@@ -148,4 +154,9 @@ function displayRecipeOptions() {
         recipeContainer.appendChild(recipeOption);
     }
 }
+displayRecipeOptions();
 
+const groceryListItems = document.getElementsByClassName('grocery-list-item');
+// groceryListItems.forEach( item => {
+//     item.addEventListener('click', () => alert('working'))
+// });

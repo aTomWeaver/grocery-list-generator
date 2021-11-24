@@ -51,6 +51,9 @@ header {
         height: 100px;
         width: 130px;
         text-align: center;
+        line-height: 100px;
+        border-radius: 10px;
+        font-family: 'Nanum Myeongjo', serif;
     }
         .recipe:hover {
             opacity: 50%;
