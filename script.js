@@ -8,6 +8,7 @@ const recipeFactory = (name, ingredients, mealType) => {
     return {name, ingredients, mealType};
 };
 
+
 // element bindings
 const newRecipeBtn = document.getElementById('new-recipe-btn');
 const addSingleItemBtn = document.getElementById('add-single-item-btn');
@@ -64,6 +65,7 @@ function addNewRecipe() {
     const ingr = document.getElementById('recipe-ingredients').value.toLowerCase().split(', ');
     const type = document.getElementById('meal-type').value.toLowerCase();
     const newRecipe = recipeFactory(name, ingr, type);
+    localStorage.setItem(name, JSON.stringify(newRecipe));
     recipes.push(newRecipe);
     refreshRecipeOptions();
     clearModal();
@@ -91,9 +93,7 @@ function addRecipeToList(obj) {
 }
 
 function addSingleItem(item) {
-    if (item === null) {
-        return;
-    } else {
+    if (item) {
         let pseudoRecipe = recipeFactory('pseudo', [item], 'added item');
         addRecipeToList(pseudoRecipe);
         refreshGroceryList();
@@ -120,8 +120,6 @@ function refreshGroceryList() {
     }
 }
 
-
-
 // event finalShoppingListeners
 newRecipeBtn.addEventListener('click', displayModal);
 closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
@@ -130,9 +128,6 @@ addSingleItemBtn.addEventListener('click',() => {
     const item = prompt('Item:');
     addSingleItem(item);
 })
-
-
-
 
 function add(num) {
     addedRecipesArray.push(num)

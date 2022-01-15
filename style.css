@@ -47,6 +47,7 @@ header {
 }
     .recipe {
         background-color: coral;
+        border: 2px solid white;
         margin: 10px;
         height: 100px;
         width: 130px;
