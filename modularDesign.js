@@ -40,13 +40,19 @@ const recipes = (() => {
             this.recipeContainer.append(recipeCard);
         }
     }
+    const refreshOptions = () => {
+        this.recipeContainer.innerHTML = '';
+        _render();
+    }
     const rmvRecipe = () => {
         // local.removeItem()
     }
     let list = _localToArr();
     _init();
-    return { list }
+    return { list, refreshOptions }
 })();
+
+
 
 const modal = (() => {
     const _init = () => {
@@ -54,20 +60,55 @@ const modal = (() => {
         _bindEvents();
     }
     const _cacheDOM = () => {
+        this.modal = document.getElementById('modal');
         this.newRecipeBtn = document.getElementById('new-recipe-btn');
-        this.modal = document.getElementById('modal')
         this.closeBtn = document.getElementById('close-modal-btn');
         this.addBtn = document.getElementById('modal-add-btn');
+        this.recipeName = document.getElementById('recipe-name');
+        this.recipeIngredients = document.getElementById('recipe-ingredients');
     }
     const _bindEvents = () => {
         newRecipeBtn.addEventListener('click', () => this.modal.style.display = 'block');
         closeBtn.addEventListener('click', _close);
+        addBtn.addEventListener('click', pushRecipe);
     }
     const _clear = () => {
         document.getElementById('recipe-name').value = '';
         document.getElementById('recipe-ingredients').value = '';
-        document.getElementById('meal-type').value = '';
     }
     const _close = () => this.modal.style.display = 'none';
-    _init()
+    const pushRecipe = () => {
+        const name = this.recipeName.value;
+        const ingredients = this.recipeIngredients.value.toLowerCase().split(', ');
+        local.setItem(name, JSON.stringify(ingredients));
+        recipes.refreshOptions();
+    }
+    _init();
+})();
+
+
+
+const groceryList = (() => {
+    let items = [];
+    const _init = () => {
+        _cacheDOM();
+        _bindEvents();
+        _render();
+    }
+    const _cacheDOM = () => {
+
+    }
+    const _bindEvents = () => {
+
+    }
+    const _render = () => {
+
+    }
+    const addRecipe = () => {
+
+    }
+    const addSingleItem = () => {
+
+    }
+    _init();
 })();
