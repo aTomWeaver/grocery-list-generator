@@ -35,9 +35,13 @@ const recipes = (() => {
     const _render = () => {
         for (i = 0; i < local.length; i++) {
             const recipeCard = document.createElement('div');
+            
             recipeCard.classList.add('recipe');
             recipeCard.setAttribute('data-listNum', i);
             recipeCard.innerText = local.key(i);
+            recipeCard.addEventListener('click', e => {
+              console.log(e.target.dataset.listnum)
+            })
             this.recipeContainer.append(recipeCard);
         }
     }
@@ -100,10 +104,10 @@ const groceryList = (() => {
         _render();
     }
     const _cacheDOM = () => {
-
+        this.options = document.querySelectorAll('.recipe');
     }
     const _bindEvents = () => {
-
+        
     }
     const _render = () => {
 
