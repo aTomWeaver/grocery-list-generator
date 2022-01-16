@@ -35,7 +35,8 @@ const recipes = (() => {
     const _render = () => {
         for (i = 0; i < local.length; i++) {
             const recipeCard = document.createElement('div');
-            recipeCard.classList.add('recipe')
+            recipeCard.classList.add('recipe');
+            recipeCard.setAttribute('data-listNum', i);
             recipeCard.innerText = local.key(i);
             this.recipeContainer.append(recipeCard);
         }
@@ -49,7 +50,7 @@ const recipes = (() => {
     }
     let list = _localToArr();
     _init();
-    return { list, refreshOptions }
+    return { list, refreshOptions, _localToArr }
 })();
 
 
@@ -80,8 +81,11 @@ const modal = (() => {
     const pushRecipe = () => {
         const name = this.recipeName.value;
         const ingredients = this.recipeIngredients.value.toLowerCase().split(', ');
+        _clear();
+        _close();
         local.setItem(name, JSON.stringify(ingredients));
         recipes.refreshOptions();
+        recipes.list = recipes._localToArr();
     }
     _init();
 })();
