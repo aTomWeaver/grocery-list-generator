@@ -1,5 +1,16 @@
 const local = window.localStorage;
 
+/* convert local storage to a sorted array AND add the 
+name of the recipe to the beginning of the array */
+const localToArr = () => {
+    let arr = [];
+    for (i = 0; i < local.length; i++) {
+        arr.push(JSON.parse(local[local.key(i)]));
+        arr[i].unshift(local.key(i));
+    }
+    return arr.sort();
+}
+
 // recipes start
 local.setItem('tacos', JSON.stringify(['taco sauce', '1 lb 80/20 ground beef', 'tortillas', 'mexican blend cheese']));
 local.setItem('spaghetti', JSON.stringify(['spaghetti noodles', '1 lb 80/20 ground beef', 'spaghetti sauce', 'yellow onion']));
@@ -13,51 +24,85 @@ local.setItem('chili', JSON.stringify(['1 lb 80/20 ground beef', 'diced tomatoes
     'dark kidney beans', 'black beans', '? chili powder', 'yellow onion', '? red pepper flakes']));
 // recipes end
 
+// || RECIPES MODULE
 const recipes = (() => {
-    // this.addBuffer = 0;
+    let addedRecipes = [];
+    let groceryList = [];
     const _init = () => {
         _cacheDOM();
         _bindEvents();
-        _render();
+        renderOptions();
     }
     const _cacheDOM = () => {
         this.recipeContainer = document.querySelector('.recipe-container');
+        this.groceryListContainer = document.querySelector('.grocery-list-container');
+        this.addedRecipesContainer = document.querySelector('.recipes-added-container');
+        this.addSingleItemBtn = document.getElementById('add-single-item-btn');
     }
     const _bindEvents = () => {
-
+        this.addSingleItemBtn.addEventListener('click', addSingleItemToList);
     }
-    const localToArr = () => {
-        let arr = [];
-        for (i = 0; i < local.length; i++) {
-            arr.push(JSON.parse(local.getItem(local.key(i))));
+    const addSingleItemToList = () => {
+        const item = prompt('Single item: ');
+        groceryList.push(item);
+        _renderAddedRecipeList();
+        _renderGroceryList();
+    }
+    const _addRecipeToList = (options, e) => {
+        const recipe = options[e.target.getAttribute('data-index')];
+        // add name of recipe addedRecipes array
+        addedRecipes.push(recipe[0]);
+        // add ingredients to groceryList array
+        for (let i = 1; i < recipe.length; i++) groceryList.push(recipe[i]);
+    }
+    const _renderAddedRecipeList = () => {
+        this.addedRecipesContainer.innerHTML = '';
+        for (let i = 0; i < addedRecipes.length; i++) {
+            // render recipes-added 
+            const recipeCard = document.createElement('div');
+            recipeCard.innerText = addedRecipes[i];
+            this.addedRecipesContainer.append(recipeCard);
         }
-        return arr;
     }
-    const _render = () => {
-        for (i = 0; i < local.length; i++) {
+    const _renderGroceryList = () => {
+        this.groceryListContainer.innerHTML = '';
+        for (let i = 0; i < groceryList.length; i++) {
+            const groceryCard = document.createElement('div');
+            groceryCard.innerText = groceryList[i];
+            groceryCard.addEventListener('click', () => removeGroceryItem) // ADD THIS FUNCTION
+            this.groceryListContainer.append(groceryCard);
+        }
+    }
+    const renderOptions = () => {
+        this.recipeContainer.innerHTML = '';
+        const options = localToArr();
+        for (i = 0; i < options.length; i++) {
             const recipeCard = document.createElement('div');
             recipeCard.classList.add('recipe');
-            recipeCard.setAttribute('data-listNum', i);
-            recipeCard.innerText = local.key(i);
-            // recipeCard.addEventListener('click', e => {
-            //     addBuffer = e.target.dataset.listnum;
-            // })
+            recipeCard.setAttribute('data-index', i);
+            recipeCard.innerText = options[i][0];
+            recipeCard.addEventListener('click', e => {
+                _addRecipeToList(options, e);
+                _renderAddedRecipeList();
+                _renderGroceryList();
+            })
             this.recipeContainer.append(recipeCard);
         }
     }
     const refreshOptions = () => {
         this.recipeContainer.innerHTML = '';
-        _render();
+        renderOptions();
     }
     const rmvRecipe = () => {
-        // local.removeItem()
+        // THIS IS UNTESTED! TEST THIS BEFORE USING!
+        const options = localToArr();
+        local.removeItem(local[e.target.getAttribute('data-index')]);
     }
-    let list = localToArr();
     _init();
-    return { list, refreshOptions, localToArr }
+    return { addedRecipes, groceryList, renderOptions}
 })();
 
-
+// || MODAL MODULE
 
 const modal = (() => {
     const _init = () => {
@@ -83,71 +128,14 @@ const modal = (() => {
     }
     const _close = () => this.modal.style.display = 'none';
     const pushRecipe = () => {
-        const name = this.recipeName.value;
+        const name = this.recipeName.value.toLowerCase();
         const ingredients = this.recipeIngredients.value.toLowerCase().split(', ');
         _clear();
         _close();
         local.setItem(name, JSON.stringify(ingredients));
-        recipes.refreshOptions();
-        recipes.list = recipes.localToArr();
+        recipes.renderOptions();
     }
     _init();
 })();
 
 
-// the rendering of this grocery list is smelly; I'll fix it up later
-const groceryList = (() => {
-    let items = [];
-    let listItems;
-    const _init = () => {
-        _cacheDOM();
-        _bindEvents();
-        _render();
-    }
-    const _cacheDOM = () => {
-        this.options = document.querySelectorAll('.recipe');
-        this.listContainer = document.querySelector('.grocery-list-container')
-        this.recipesAddedContainer = document.querySelector('.recipes-added-container');
-    }
-    const _bindEvents = () => {
-        options.forEach(element => {
-            element.addEventListener('click', e => addRecipe(e.target.dataset.listnum));
-        });
-    }
-    const _renderRecipeList = () => { 
-        for (let i = 0; i < listItems.length; i++) {
-            // render recipes-added 
-            const recipeCard = document.createElement('div');
-            recipeCard.innerText = listItems[i];
-            this.recipesAddedContainer.append(recipeCard);
-        }
-    }
-    const _renderIngredientList = () => {
-        for (let i = 0; i < listItems.length; i++) {
-            const groceryCard = document.createElement('div');
-            const recipeArray = JSON.parse(local[local.key(i)]);
-            recipeArray.forEach(elm => {
-                const ingredientCard = document.createElement('div');
-                ingredientCard.innerText = elm;
-                this.listContainer.append(ingredientCard);
-            });
-        }
-    }
-    const _render = () => {
-        listItems = items.map(elm => local.key(elm));
-        this.recipesAddedContainer.innerHTML = '';
-        this.listContainer.innerHTML = '';
-        _renderRecipeList();
-        _renderIngredientList();
-    }
-    const addRecipe = (recipeNum) => {
-        items.push(parseInt(recipeNum));
-        _render();
-    }
-    const addSingleItem = () => {
-        const item = prompt('Single item: ');
-        listContainer.append(item);
-    }
-    _init();
-    return { addRecipe, items }
-})();
