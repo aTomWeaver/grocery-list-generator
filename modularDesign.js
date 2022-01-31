@@ -95,11 +95,13 @@ const recipes = (() => {
                 groceryCard.classList.add('grocery-card')
             const item = document.createElement('div');
             const quantity = document.createElement('div');
+                quantity.classList.add('item-qty');
                 // bind values
             item.innerText = filteredList[i];
             quantity.innerText = qty[i];
                 // bind events
-            groceryCard.addEventListener('click', () => removeGroceryItem) // ADD THIS FUNCTION
+            item.addEventListener('click', () => removeGroceryItem) // ADD THIS FUNCTION
+            quantity.addEventListener('click', () => changeItemQuantity); // ADD THIS FUNCTION
                 // append elements
             groceryCard.append(item, quantity);
             this.groceryListContainer.append(groceryCard);

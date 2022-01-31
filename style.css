@@ -9,7 +9,7 @@ body,html {
 }
 
 header {
-    background-color: tomato;
+    background-color: #F6AE2D;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,8 +17,19 @@ header {
     width: 100%;
 }
 
+button {
+    height: 2em;
+    width:125px;
+    border: none;
+    border-radius: 10px;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
 #title {
-    font-family: 'Nanum Myeongjo', serif;
+    font-family: 'Open Sans Condensed', sans-serif;
     font-size: 2.3em;
 }
 
@@ -44,25 +55,28 @@ header {
 /* || RECIPE OPTIONS || */
 
 .recipe-container {
-    background-color: burlywood;
+    background-color: #9197AE;
     padding: 5px;
     display: flex;
     flex-flow: row wrap;
     align-content: flex-start;
 }
     .recipe {
-        background-color: coral;
-        border: 2px solid white;
+        background-color: #F6AE2D;
+        border: 1px solid #EFF6EE;
         margin: 10px;
         height: 100px;
         width: 130px;
         text-align: center;
         line-height: 100px;
         border-radius: 10px;
-        font-family: 'Nanum Myeongjo', serif;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
     }
         .recipe:hover {
-            opacity: 50%;
+            background-color: #273043;
+            color: white;
+            transform: scale(1.2); 
         }
         .recipe:active {
             background-color: cornflowerblue;
@@ -72,12 +86,12 @@ header {
 /* || ADDED RECIPES || */
 
 .recipes-added-div{
-    background-color: darkseagreen;
+    background-color: #EFF6EE;
     display: flex;
     flex-direction: column;
 }
     .recipes-added-div > h2 {
-        font-family: 'Nanum Myeongjo', serif;
+        font-family: 'Roboto', sans-serif;
         text-align: center;
         font-size: 1.5em;
     }
@@ -85,8 +99,9 @@ header {
         flex-grow: 1;
     }
     .recipes-added-container > div {
-        font-family: 'caveat', cursive;
-        font-size: 1.3em;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 1.1em;
         margin: 3px;
         padding: 3px;
     }
@@ -98,12 +113,13 @@ header {
 /* || GROCERY LIST || */
 
 .grocery-list-div {
-    background-color: dodgerblue;
+    background-color: #273043;
+    color: white;
     display: flex;
     flex-direction: column;
 }
     .grocery-list-div > h2 {
-        font-family: 'Nanum Myeongjo', serif;
+        font-family: 'Roboto', sans-serif;
         text-align: center;
         font-size: 1.5em;
     }
@@ -114,11 +130,19 @@ header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-family: 'caveat', cursive;
-            font-size: 1.3em;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            font-size: 1.1em;
             margin: 3px;
             padding: 3px;
         }
+            .item-qty {
+                text-align: center;
+                width: 1em;
+                border: 1px solid #F6AE2D;
+                font-family: 'Roboto', sans-serif;
+                cursor: pointer;
+            }
 
 
 
