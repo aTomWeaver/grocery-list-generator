@@ -1,9 +1,11 @@
 body,html {
     margin: 0;
     padding: 0;
-}
-* {
     box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 header {
@@ -20,12 +22,12 @@ header {
     font-size: 2.3em;
 }
 
+/* || BUTTONS || */
+
 #new-recipe-btn {
     position: absolute;
     left: 10px;
-    /* float: left; */
 }
-
 #add-single-item-btn {
     position: absolute;
     right: 10px;
@@ -37,6 +39,9 @@ header {
     grid-template-columns: 1fr 175px 250px;
     grid-template-rows: 1fr;
 }
+
+
+/* || RECIPE OPTIONS || */
 
 .recipe-container {
     background-color: burlywood;
@@ -64,6 +69,8 @@ header {
         }
 
 
+/* || ADDED RECIPES || */
+
 .recipes-added-div{
     background-color: darkseagreen;
     display: flex;
@@ -86,6 +93,10 @@ header {
     .recipe-rmv {
         float: right;
     }
+
+
+/* || GROCERY LIST || */
+
 .grocery-list-div {
     background-color: dodgerblue;
     display: flex;
@@ -99,17 +110,20 @@ header {
     .grocery-list-container {
         flex-grow: 1;
     }
-        .grocery-list-container > div {
+        .grocery-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-family: 'caveat', cursive;
             font-size: 1.3em;
             margin: 3px;
             padding: 3px;
         }
-        .item-rmv {
-            float: right;
-        }
 
-/* MODAL FORM */
+
+
+/* || MODAL FORM || */
+
 #modal {
     display: none;
     position: fixed;

@@ -61,15 +61,22 @@ function clearModal() {
 
 // functions
 function addNewRecipe() {
+    // get values from modal
     const name = document.getElementById('recipe-name').value.toLowerCase();
     const ingr = document.getElementById('recipe-ingredients').value.toLowerCase().split(', ');
     const type = document.getElementById('meal-type').value.toLowerCase();
+
+    // create recipe object via factory function
     const newRecipe = recipeFactory(name, ingr, type);
+
+    // stringify it and store it in local storage
     localStorage.setItem(name, JSON.stringify(newRecipe));
+
+    // push recipe object to recipes array
     recipes.push(newRecipe);
+    
     refreshRecipeOptions();
     clearModal();
-
 }
 
 function addRecipeToList(obj) {

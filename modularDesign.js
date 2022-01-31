@@ -11,7 +11,7 @@ const localToArr = () => {
     return arr.sort();
 }
 
-// recipes start
+// CACHE STARTING RECIPES
 local.setItem('tacos', JSON.stringify(['taco sauce', '1 lb 80/20 ground beef', 'tortillas', 'mexican blend cheese']));
 local.setItem('spaghetti', JSON.stringify(['spaghetti noodles', '1 lb 80/20 ground beef', 'spaghetti sauce', 'yellow onion']));
 local.setItem('jambalaya', JSON.stringify(['andouille sausage', 'chicken thighs', 'chicken broth', 'chicken broth',
@@ -22,12 +22,13 @@ local.setItem('chicken wraps', JSON.stringify(['tortillas', 'romaine', 'feta', '
 local.setItem('chicken teriyaki', JSON.stringify(['chicken thighs', 'broccoli', '? rice', 'sake', 'mirin', '? sugar', 'soy sauce']));
 local.setItem('chili', JSON.stringify(['1 lb 80/20 ground beef', 'diced tomatoes', 'diced tomatoes', 'chicken broth',
     'dark kidney beans', 'black beans', '? chili powder', 'yellow onion', '? red pepper flakes']));
-// recipes end
 
-// || RECIPES MODULE
+
+
 const recipes = (() => {
     let addedRecipes = [];
     let groceryList = [];
+    let itemQuantityArray = [];
     const _init = () => {
         _cacheDOM();
         _bindEvents();
@@ -42,11 +43,27 @@ const recipes = (() => {
     const _bindEvents = () => {
         this.addSingleItemBtn.addEventListener('click', addSingleItemToList);
     }
+
+    // HELPER FUNCTIONS
+    const _filterList = () => {
+        itemQuantityArray = [];
+        filtered = [...new Set(groceryList)];
+        filtered.forEach(elm => {
+            let itemQuantity = groceryList.filter(x => x == elm).length;
+            itemQuantityArray.push(itemQuantity);
+        })
+        return {filtered, itemQuantityArray}
+    }
+
+    // ADD ITEMS
+
     const addSingleItemToList = () => {
         const item = prompt('Single item: ');
-        groceryList.push(item);
-        _renderAddedRecipeList();
-        _renderGroceryList();
+        if (item) {
+            groceryList.push(item);
+            _renderAddedRecipeList();
+            _renderGroceryList();
+        }
     }
     const _addRecipeToList = (options, e) => {
         const recipe = options[e.target.getAttribute('data-index')];
@@ -55,6 +72,9 @@ const recipes = (() => {
         // add ingredients to groceryList array
         for (let i = 1; i < recipe.length; i++) groceryList.push(recipe[i]);
     }
+
+    // RENDER ITEMS
+
     const _renderAddedRecipeList = () => {
         this.addedRecipesContainer.innerHTML = '';
         for (let i = 0; i < addedRecipes.length; i++) {
@@ -65,11 +85,23 @@ const recipes = (() => {
         }
     }
     const _renderGroceryList = () => {
+        const filteredList = _filterList().filtered;
+        const qty = _filterList().itemQuantityArray;
         this.groceryListContainer.innerHTML = '';
-        for (let i = 0; i < groceryList.length; i++) {
+
+        for (let i = 0; i < filteredList.length; i++) {
+                // create elements
             const groceryCard = document.createElement('div');
-            groceryCard.innerText = groceryList[i];
+                groceryCard.classList.add('grocery-card')
+            const item = document.createElement('div');
+            const quantity = document.createElement('div');
+                // bind values
+            item.innerText = filteredList[i];
+            quantity.innerText = qty[i];
+                // bind events
             groceryCard.addEventListener('click', () => removeGroceryItem) // ADD THIS FUNCTION
+                // append elements
+            groceryCard.append(item, quantity);
             this.groceryListContainer.append(groceryCard);
         }
     }
@@ -89,20 +121,23 @@ const recipes = (() => {
             this.recipeContainer.append(recipeCard);
         }
     }
-    const refreshOptions = () => {
-        this.recipeContainer.innerHTML = '';
-        renderOptions();
-    }
+
+    // REMOVE RECIPES
+
     const rmvRecipe = () => {
         // THIS IS UNTESTED! TEST THIS BEFORE USING!
         const options = localToArr();
-        local.removeItem(local[e.target.getAttribute('data-index')]);
+        const answer = prompt(`Type "remove" to remove recipe`);
+        if (answer === "remove") local.removeItem(local[e.target.getAttribute('data-index')]);
+        renderOptions();
     }
+
+
     _init();
-    return { addedRecipes, groceryList, renderOptions}
+    return {renderOptions, groceryList, addedRecipes}
 })();
 
-// || MODAL MODULE
+
 
 const modal = (() => {
     const _init = () => {
