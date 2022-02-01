@@ -137,9 +137,23 @@ const recipes = (() => {
     }
 
     const changeItemQuantity = (e) => {
-        console.log(e.target.innerText);
         const item = e.target.previousElementSibling.innerText;
-        groceryList.splice(groceryList.indexOf(item), 1);
+        const currentQty = parseInt(e.target.innerText);
+        const desiredQty = parseInt(prompt('Quantity'));
+        console.log(`currently ${currentQty} : desired ${desiredQty}`)
+        if (desiredQty === 0) {
+            for(i = 0; i < currentQty; i++) {
+                groceryList.splice(groceryList.indexOf(item), 1);
+            }
+        } else if (desiredQty < currentQty) {
+            for (i = 0; i < desiredQty; i++) {
+                groceryList.splice(groceryList.indexOf(item), 1);
+            }
+        } else {
+            for (i = 0; i < (desiredQty - currentQty) ; i++) {
+                groceryList.push(item);
+            }
+        }
         _renderGroceryList();
     }
 
