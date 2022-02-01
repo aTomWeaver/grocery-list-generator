@@ -101,7 +101,9 @@ const recipes = (() => {
             quantity.innerText = qty[i];
                 // bind events
             item.addEventListener('click', () => removeGroceryItem) // ADD THIS FUNCTION
-            quantity.addEventListener('click', () => changeItemQuantity); // ADD THIS FUNCTION
+            quantity.addEventListener('click', (e) => {
+                changeItemQuantity(e);
+            }); // ADD THIS FUNCTION
                 // append elements
             groceryCard.append(item, quantity);
             this.groceryListContainer.append(groceryCard);
@@ -124,7 +126,7 @@ const recipes = (() => {
         }
     }
 
-    // REMOVE RECIPES
+    // REMOVE / CHANGE
 
     const rmvRecipe = () => {
         // THIS IS UNTESTED! TEST THIS BEFORE USING!
@@ -134,6 +136,12 @@ const recipes = (() => {
         renderOptions();
     }
 
+    const changeItemQuantity = (e) => {
+        console.log(e.target.innerText);
+        const item = e.target.previousElementSibling.innerText;
+        groceryList.splice(groceryList.indexOf(item), 1);
+        _renderGroceryList();
+    }
 
     _init();
     return {renderOptions, groceryList, addedRecipes}
