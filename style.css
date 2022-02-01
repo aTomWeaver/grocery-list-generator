@@ -160,20 +160,22 @@ button:hover {
 }
 
 .modal-content {
-    background-color: dodgerblue;
+    background-color: #273043;
+    color: white;
     margin: auto;
     padding: 20px;
     width: 300px;
 }
     #close-modal-btn {
         float: right;
-        color: #4a4a4a;
+        color: white;
     }
         #close-modal-btn:hover,
         #close-modal-btn:focus {
-            color: #000;
+            color: white;
             text-decoration: none;
             cursor: pointer;
+            transform: scale(1.8);
         }
     #modal-add-btn {
         margin-top: 30px;
@@ -182,8 +184,8 @@ button:hover {
         margin: 5px;
     }
     form {
-        font-family: 'Baloo 2', cursive;
-        font-size: 1.3em;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.2em;
         display: flex;
         flex-direction: column;
         align-items: center;
