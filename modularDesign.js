@@ -138,16 +138,17 @@ const recipes = (() => {
 
     const changeItemQuantity = (e) => {
         const item = e.target.previousElementSibling.innerText;
-        const currentQty = parseInt(e.target.innerText);
+        let currentQty = parseInt(e.target.innerText);
         const desiredQty = parseInt(prompt('Quantity'));
         console.log(`currently ${currentQty} : desired ${desiredQty}`)
         if (desiredQty === 0) {
             for(i = 0; i < currentQty; i++) {
                 groceryList.splice(groceryList.indexOf(item), 1);
             }
-        } else if (desiredQty < currentQty) {
-            for (i = 0; i < desiredQty; i++) {
-                groceryList.splice(groceryList.indexOf(item), 1);
+        } else if (desiredQty < currentQty) { //  FIX THIS CONDITION!!
+            while (desiredQty !== currentQty) {
+                groceryList.splice(groceryList.indexOf(item), 1); 
+                currentQty--;
             }
         } else {
             for (i = 0; i < (desiredQty - currentQty) ; i++) {
