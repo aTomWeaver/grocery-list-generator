@@ -136,7 +136,7 @@ const recipes = (() => {
         renderOptions();
     }
 
-    const changeItemQuantity = (e) => {
+    const changeItemQuantity = (e) => { // TRY PASSING IN NAME OF ITEM INSTEAD OF EVENT 
         const item = e.target.previousElementSibling.innerText;
         let currentQty = parseInt(e.target.innerText);
         const desiredQty = parseInt(prompt('Quantity'));
