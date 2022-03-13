@@ -12,7 +12,7 @@ const localToArr = () => {
 }
 
 // CACHE STARTING RECIPES
-local.setItem('tacos', JSON.stringify(['taco sauce', '1 lb 80/20 ground beef', 'tortillas', 'mexican blend cheese']));
+local.setItem('tacos', JSON.stringify(['? taco spices', '1 lb 80/20 ground beef', 'tortillas', 'mexican blend cheese']));
 local.setItem('spaghetti', JSON.stringify(['spaghetti noodles', '1 lb 80/20 ground beef', 'spaghetti sauce', 'yellow onion']));
 local.setItem('jambalaya', JSON.stringify(['andouille sausage', 'chicken thighs', 'chicken broth', 'chicken broth',
     'crushed tomatoes', 'yellow onion', '? minced garlic']));
@@ -22,7 +22,8 @@ local.setItem('chicken wraps', JSON.stringify(['tortillas', 'romaine', 'feta', '
 local.setItem('chicken teriyaki', JSON.stringify(['chicken thighs', 'broccoli', '? rice', 'sake', 'mirin', '? sugar', 'soy sauce']));
 local.setItem('chili', JSON.stringify(['1 lb 80/20 ground beef', 'diced tomatoes', 'diced tomatoes', 'chicken broth',
     'dark kidney beans', 'black beans', '? chili powder', 'yellow onion', '? red pepper flakes']));
-
+local.setItem('hamburger helper', JSON.stringify(['1 lb 80/20 ground beef', '? ketchup', '? dijon mustard', 'elbow macaroni',
+    'chicken broth', 'chicken broth', 'chicken broth', 'shredded cheddar']))
 
 
 const recipes = (() => {
