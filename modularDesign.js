@@ -46,7 +46,7 @@ const recipes = (() => {
     }
 
     // HELPER FUNCTIONS
-    const _filterList = () => {
+    const filterList = () => {
         itemQuantityArray = [];
         filtered = [...new Set(groceryList)];
         filtered.forEach(elm => {
@@ -86,8 +86,8 @@ const recipes = (() => {
         }
     }
     const _renderGroceryList = () => {
-        const filteredList = _filterList().filtered;
-        const qty = _filterList().itemQuantityArray;
+        const filteredList = filterList().filtered;
+        const qty = filterList().itemQuantityArray;
         this.groceryListContainer.innerHTML = '';
 
         for (let i = 0; i < filteredList.length; i++) {
@@ -95,13 +95,14 @@ const recipes = (() => {
             const groceryCard = document.createElement('div');
                 groceryCard.classList.add('grocery-card')
             const item = document.createElement('div');
+            item.classList.add('item-name');
             const quantity = document.createElement('div');
                 quantity.classList.add('item-qty');
                 // bind values
             item.innerText = filteredList[i];
             quantity.innerText = qty[i];
                 // bind events
-            item.addEventListener('click', () => removeGroceryItem) // ADD THIS FUNCTION
+            // item.addEventListener('click', () => removeGroceryItem) // ADD THIS FUNCTION
             quantity.addEventListener('click', (e) => {
                 changeItemQuantity(e);
             }); // ADD THIS FUNCTION
@@ -109,6 +110,8 @@ const recipes = (() => {
             groceryCard.append(item, quantity);
             this.groceryListContainer.append(groceryCard);
         }
+        // append getTextListBtn
+
     }
     const renderOptions = () => {
         this.recipeContainer.innerHTML = '';
@@ -160,7 +163,7 @@ const recipes = (() => {
     }
 
     _init();
-    return {renderOptions, groceryList, addedRecipes}
+    return {renderOptions, groceryList, addedRecipes, filterList}
 })();
 
 
@@ -198,5 +201,3 @@ const modal = (() => {
     }
     _init();
 })();
-
-
